@@ -4,9 +4,9 @@ import {
     runCallback,
 } from 'widget-base-helpers';
 
+import widgetTemplate from "./ImageCrop.template.html";
 
-
-export default defineWidget('ImageCrop', false, {
+export default defineWidget('ImageCrop', widgetTemplate, {
 
     _obj: null,
 
