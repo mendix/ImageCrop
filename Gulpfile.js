@@ -103,7 +103,9 @@ gulp.task('clean', `Cleanup the dist/build`, () => {
     return del([
         'dist',
         'build'
-    ], { force: true });
+    ], {
+        force: true
+    });
 });
 
 // Final tasks
@@ -112,6 +114,8 @@ gulp.task('build', 'Build the widget', done => {
     sequence('clean', 'build-dist', done);
 });
 
-gulp.task('build-dist', callback => { runWebpack(callback); });
+gulp.task('build-dist', callback => {
+    runWebpack(callback);
+});
 
 gulp.task('default', ['watch:src', 'watch:build', 'watch:dist']);
