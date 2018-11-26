@@ -1,2 +1,3 @@
 # ImageCrop
-Image cropping widget 
+
+Image cropping widget.
