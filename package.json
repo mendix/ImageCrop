@@ -68,7 +68,7 @@
         "xml-webpack-plugin": "^0.0.2"
     },
     "dependencies": {
-        "jquery": "^3.3.1",
+        "croppie": "^2.6.2",
         "widget-base-helpers": "latest"
     }
 }
