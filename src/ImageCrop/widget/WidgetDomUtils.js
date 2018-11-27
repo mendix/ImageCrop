@@ -2,9 +2,7 @@ import {
     get as domAttrGet,
     set as domAttrSet
 } from "dojo/dom-attr";
-import {
-    query as domQuery
-} from "dojo/query";
+import domQuery from "dojo/query";
 import {
     create as domCreate,
     place as domPlace
@@ -14,8 +12,7 @@ import {
  * A node in the DOM tree.
  * @external Element
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element Element}
- */
-/**
+ * 
  * Appends/Updates an alert node of type error with an error feedback message.
  * @param {string} errorMessage a friendly error message will be displayed to the user,
  * telling what is wrong with the widget.
