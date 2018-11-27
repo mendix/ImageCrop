@@ -30,6 +30,10 @@ fs.ensureDirSync(mpkDir);
 
 const entry = {};
 
+const projectPath = pkg.widget.path ? path.resolve(pkg.widget.path) : false;
+
+
+
 fs.readdirSync(widgetDir)
     .filter(file => file.indexOf('.js') !== -1)
     .filter(file => {
@@ -103,8 +107,7 @@ const webpackConfig = {
         filename: `${packageName}/${widgetFolder}/[name].js`
     },
     module: {
-        loaders: [
-            {
+        loaders: [{
                 test: /\.jsx?$/,
                 include: [
                     path.resolve(__dirname, 'src'),
@@ -147,8 +150,7 @@ const webpackConfig = {
                                 speed: 2
                             },
                             svgo: {
-                                plugins: [
-                                    {
+                                plugins: [{
                                         removeTitle: true
                                     },
                                     {
@@ -186,7 +188,28 @@ const webpackConfig = {
             output: path.join(__dirname, `./${mpkDir}/${packageName}`),
             ext: 'mpk',
             format: 'zip'
+        }),
+        (
+            projectPath && new ZipPlugin({
+                entries: [{
+                    src: path.join(__dirname, './build'),
+                    dist: '/',
+                }],
+                output: path.join(projectPath, `/widgets`, `/${pkg.widget.package}`),
+                ext: 'mpk',
+                format: 'zip'
+            })
+        ),
+        new ZipPlugin({
+            entries: [{
+                src: path.join(__dirname, './build'),
+                dist: '/',
+            }],
+            output: path.join(__dirname, `./test/`),
+            ext: 'mpk',
+            format: 'zip'
         })
+
     ],
     externals,
     resolve: {
@@ -206,11 +229,9 @@ if (env !== 'production') {
         test: /\.js$/,
         enforce: 'pre',
         exclude: /(node_modules|bower_components|\.spec\.js)/,
-        use: [
-            {
-                loader: 'webpack-strip-block'
-            }
-        ]
+        use: [{
+            loader: 'webpack-strip-block'
+        }]
     });
 }
 

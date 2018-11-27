@@ -1,5 +1,6 @@
 const path = require('path');
 const fs = require('fs-extra');
+const fsOrg = require("fs");
 const gulp = require('gulp-help')(require('gulp'));
 const gutil = require('gulp-util');
 const webpack = require('webpack');
@@ -87,6 +88,10 @@ gulp.task('watch:build', () => {
     })
 });
 
+
+// in the files which are copied to the dest folder there is bug, xml file are not included in the new copy.
+// solved by set a webpack plugin to wirte the generated new zip/mpk to the project directory as well. 
+/*
 gulp.task('watch:dist', () => {
     return watch(`dist/${pkg.widget.package}.mpk`, {
         verbose: stat !== null,
@@ -95,9 +100,12 @@ gulp.task('watch:dist', () => {
         if (stat !== null) {
             const paths = getPaths(file, 'dist', widgetsFolder);
             copyFile(paths);
+
         }
     })
 });
+
+*/
 
 gulp.task('clean', `Cleanup the dist/build`, () => {
     return del([
@@ -118,4 +126,4 @@ gulp.task('build-dist', callback => {
     runWebpack(callback);
 });
 
-gulp.task('default', ['watch:src', 'watch:build', 'watch:dist']);
+gulp.task('default', ['watch:src', 'watch:build']);
