@@ -4,10 +4,66 @@
     <description>Image Cropping Mendix Widget</description>
     <icon/>
     <properties>
-        <property key="dummyKey" type="string" required="false" defaultValue="">
-            <caption>Dummy key</caption>
-            <category>Appearance</category>
-            <description>This key was added to make the widget work in the Modeler (needs atleast 1 key). Please change/remove this one</description>
+        <property key="cropedImageMicroflowHandler" type="microflow" required="true">
+            <caption>Message Microflow</caption>
+            <category>Handler</category>
+            <description>This microflow returns the control  on the cropped image to the user. Implement your logic in a microflow that accepts a parameter of the same type as the context object in which the widget is placed (e.g. perform on the cropped image save, delete, compress, convert to pdf, etc..).</description>
+            <returnType type="Void" />
+        </property>
+        <property key="viewportWidth" type="integer" required="true" defaultValue="150">
+            <caption>Viewport Width</caption>
+            <category>Options</category>
+            <description></description>
+        </property>
+        <property key="viewportHeight" type="integer" required="true" defaultValue="150">
+            <caption>Viewport Height</caption>
+            <category>Options</category>
+            <description></description>
+        </property>
+        <property key="boundaryWidth" type="integer" required="true" defaultValue="300">
+            <caption>Boundary Width</caption>
+            <category>Options</category>
+            <description></description>
+        </property>
+        <property key="boundaryHeight" type="integer" required="true" defaultValue="300">
+            <caption>Boundary Height</caption>
+            <category>Options</category>
+            <description></description>
+        </property>
+        <property key="viewportType" type="enumeration" required="true" defaultValue="circle">
+            <caption>Viewport Type</caption>
+            <category>Options</category>
+            <description></description>
+            <enumerationValues>
+                <enumerationValue key="circle">Circle</enumerationValue>
+                <enumerationValue key="square">Square</enumerationValue>
+            </enumerationValues>
+        </property>
+        <property key="enableZoomer" type="boolean" required="true" defaultValue="true">
+            <caption>Enable Zoomer</caption>
+            <category>Options</category>
+            <description></description>
+        </property>
+        <property key="enableResize" type="boolean" required="true" defaultValue="true">
+            <caption>Enable Resize</caption>
+            <category>Options</category>
+            <description></description>
+        </property>
+        <property key="enableOrientation" type="boolean" required="true" defaultValue="true">
+            <caption>Enable Orientation</caption>
+            <category>Options</category>
+            <description></description>
+        </property>
+        <property key="mouseWheelZoom" type="enumeration" required="true" defaultValue="yes">
+            <caption>Mouse Wheel Zoom</caption>
+            <category>Options</category>
+            <description>Enable or disable the ability to use the mouse wheel to zoom in and out on a croppie instance. If 'Yes + Ctrl' is selected mouse wheel will only work while control keyboard is pressed.</description>
+            <enumerationValues>
+                <enumerationValue key="yes">Yes</enumerationValue>
+                <enumerationValue key="yesWithCtrl">Yes + Ctrl</enumerationValue>
+                <enumerationValue key="no">No</enumerationValue>
+            </enumerationValues>
         </property>
     </properties>
+
 </widget>
