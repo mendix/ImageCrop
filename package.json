@@ -28,6 +28,7 @@
     ],
     "license": "MIT",
     "devDependencies": {
+        "@babel/plugin-transform-regenerator": "^7.0.0",
         "autoprefixer": "^7.1.4",
         "babel-core": "^6.26.0",
         "babel-loader": "^7.1.2",
@@ -68,6 +69,7 @@
         "xml-webpack-plugin": "^0.0.2"
     },
     "dependencies": {
+        "babel-plugin-transform-runtime": "^6.23.0",
         "croppie": "^2.6.2",
         "widget-base-helpers": "latest"
     }
