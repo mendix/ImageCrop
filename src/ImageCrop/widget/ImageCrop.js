@@ -135,6 +135,13 @@ export default defineWidget('ImageCrop', template, {
 
     _setControlOffset() {
         this.log('_setControlOffset');
+        /**
+         * Croppie library doesn't come with a control bar to perform image transfomration
+         * so this function makes sure that the control bar that we made is positioned properly 
+         * in the widget.
+         * 
+         * Important Note : should be invoked after initializing croppie and appending controls.
+         */
         if (!this.readOnly) {
             // get crop boundary height
             const cropBoundaryNode = domQuery(".cr-boundary", this.domNode)[0] || null;
@@ -149,14 +156,7 @@ export default defineWidget('ImageCrop', template, {
             // make sure not to hide the widget.
             (cropBoundaryHeight + zoomSliderWrapperHeight + controlsWrapperHeight) && domStyleSet(this.domNode, "height", `${(cropBoundaryHeight + zoomSliderWrapperHeight + controlsWrapperHeight)}px`);
             (cropBoundaryHeight + zoomSliderWrapperHeight + controlsWrapperHeight) && domStyleSet(this.domNode, "margin-bottom", `${controlsWrapperHeight + this.cropWidgetWrapperBottomMargin}px`);
-            //  set control bar position to 'absolute' and then set its top offset.
-            //domStyleSet(this.controlsWrapper, `position`, `absolute`);
-            // place controls bar under the zoom slider if exist
-            /*if (this.enableZoomer) {
 
-                const zoomSliderWrapper = domQuery(".cr-slider-wrap", this.domNode)[0] || null;
-                zoomSliderWrapper && (domStyleSet(this.controlsWrapper, "top", `${zoomSliderWrapper.offsetTop + 30}px`)); // +30px as a margin.
-            }*/
         }
 
     },
