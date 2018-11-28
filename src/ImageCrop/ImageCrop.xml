@@ -49,11 +49,11 @@
             <category>Options</category>
             <description></description>
         </property>
-        <property key="enableOrientation" type="boolean" required="true" defaultValue="true">
+        <!-- <property key="enableOrientation" type="boolean" required="true" defaultValue="true">
             <caption>Enable Orientation</caption>
             <category>Options</category>
             <description></description>
-        </property>
+        </property> -->
         <property key="mouseWheelZoom" type="enumeration" required="true" defaultValue="yes">
             <caption>Mouse Wheel Zoom</caption>
             <category>Options</category>
@@ -76,6 +76,16 @@
                 <enumerationValue key="success">Success</enumerationValue>
                 <enumerationValue key="warning">Warning</enumerationValue>
                 <enumerationValue key="danger">Danger</enumerationValue>
+            </enumerationValues>
+        </property>
+        <property key="cropButtonPosition" type="enumeration" required="true" defaultValue="block">
+            <caption>Crop Button Position</caption>
+            <category>Options</category>
+            <description></description>
+            <enumerationValues>
+                <enumerationValue key="block">Block</enumerationValue>
+                <enumerationValue key="left">Left</enumerationValue>
+                <enumerationValue key="right">Right</enumerationValue>
             </enumerationValues>
         </property>
         <property key="cropWidgetWrapperBottomMargin" type="integer" required="true" defaultValue="15">
