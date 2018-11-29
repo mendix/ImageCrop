@@ -5,9 +5,15 @@
     <icon/>
     <properties>
         <property key="cropedImageMicroflowHandler" type="microflow" required="true">
-            <caption>Message Microflow</caption>
-            <category>Handler</category>
-            <description>This microflow returns the control  on the cropped image to the user. Implement your logic in a microflow that accepts a parameter of the same type as the context object in which the widget is placed (e.g. perform on the cropped image save, delete, compress, convert to pdf, etc..).</description>
+            <caption>Cropped Image MF</caption>
+            <category>Handlers</category>
+            <description>This microflow returns the control on the cropped image to the user. Implement your logic in a microflow that accepts a parameter of the same type as the context object in which the widget is placed (e.g. perform on the cropped image save, delete, compress, convert to pdf, etc..).</description>
+            <returnType type="Void" />
+        </property>
+        <property key="originaLImageMicroflowHandler" type="microflow" required="false">
+            <caption>Original Image MF</caption>
+            <category>Handlers</category>
+            <description>This microflow returns the control on the original image to the user. Implement your logic in a microflow that accepts a parameter of the same type as the context object in which the widget is placed (e.g. perform on the cropped image save, delete, compress, convert to pdf, etc..).</description>
             <returnType type="Void" />
         </property>
         <property key="viewportWidth" type="integer" required="true" defaultValue="150">
@@ -93,6 +99,34 @@
             <category>Options</category>
             <description>Widget's bottom margin in 'px' unit.</description>
         </property>
+        <property key="croppedImageFormat" type="enumeration" required="true" defaultValue="png">
+            <caption>Format</caption>
+            <category>Result Image Options</category>
+            <description></description>
+            <enumerationValues>
+                <enumerationValue key="png">png</enumerationValue>
+                <enumerationValue key="jpeg">jpg</enumerationValue>
+                <enumerationValue key="webp">webp</enumerationValue>
+            </enumerationValues>
+        </property>
+        <property key="croppedImageQuality" type="string" required="true" defaultValue="1.0">
+            <caption>Quality</caption>
+            <category>Result Image Options</category>
+            <description>A decimal number between 0 and 1.</description>
+        </property>
+        <property key="croppedImageSize" type="enumeration" required="true" defaultValue="viewport">
+            <caption>Size</caption>
+            <category>Result Image Options</category>
+            <description>'Viewport' option means that the size of the resulting image will be the same width and height as the viewport, and 'Original' options means that the size of the resulting image will be at the original scale of the image.</description>
+            <enumerationValues>
+                <enumerationValue key="viewport">Viewport</enumerationValue>
+                <enumerationValue key="original">Original</enumerationValue>
+            </enumerationValues>
+        </property>
+        <property key="croppedImageIsCircle" type="boolean" required="true" defaultValue="false">
+            <caption>Circle</caption>
+            <category>Result Image Options</category>
+            <description>Force the resulting image to be cropped into a circle.</description>
+        </property>
     </properties>
-
 </widget>
