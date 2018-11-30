@@ -65,6 +65,7 @@ export default defineWidget('ImageCrop', template, {
             entity: MxEntityName,
             callback: hitch(this, (object) => {
                 this.croppedImageMxObject = object;
+                this.croppedImageMxObject.set("Name", `${this.contextObject.get("Name")}_cropped`);
                 this.runCallback(callback, "return control to widget base");
             }),
             error: hitch(this, (error) => {
@@ -78,7 +79,7 @@ export default defineWidget('ImageCrop', template, {
     _saveResultedImage(blob) {
         this.log('_saveResultedImage');
         if (mx.data.saveDocument) {
-            mx.data.saveDocument(this.croppedImageMxObject.getGuid(), `${this.contextObject.get("Name")}_cropped${new Date().getUTCDate()}`, {
+            mx.data.saveDocument(this.croppedImageMxObject.getGuid(), `${this.contextObject.get("Name")}_cropped`, {
                 width: 180,
                 height: 180
             }, blob, hitch(this, this._returnToUserHandling), error => {
@@ -90,8 +91,8 @@ export default defineWidget('ImageCrop', template, {
             const croppedImageUploader = new Uploader({
                 objectGuid: this.croppedImageMxObject.getGuid(),
                 maxFileSize: blob.size,
-                startUpload: null,
-                finishUpload: null,
+                startUpload: () => {},
+                finishUpload: () => {},
                 form: {
                     mxdocument: {
                         files: [
@@ -113,7 +114,7 @@ export default defineWidget('ImageCrop', template, {
     _returnToUserHandling() {
         this.log("_returnToUserHandling");
         executeMF.call(this, this.cropedImageMicroflowHandler, this.croppedImageMxObject.getGuid(), () => {
-            this.log("successfully triggered Microflow")
+            this.log("successfully triggered Microflow");
         });
     },
 
@@ -135,9 +136,11 @@ export default defineWidget('ImageCrop', template, {
                     url: this.imageSrc,
                 });
 
-                this.croppingWrapper.addEventListener("update", hitch(this, (cropUpdateEvent) => {
+                this.croppingWrapper.addEventListener("update", hitch(this, async (cropUpdateEvent) => {
                     this._resetCropperOffsets();
-                    this._cropImageForView();
+                    const imageBlob = await this._cropImageForView();
+                    const imageURL = this._convertBlobToImageURL(imageBlob);
+                    this._renderPreviewImage(imageURL);
                 }));
                 this._createControls();
                 this._initCropedImageObject(object.getEntity(), callback);
@@ -192,17 +195,11 @@ export default defineWidget('ImageCrop', template, {
         this.log('_cropImage');
         const croppedImageBlob = await this.crop.result(this._getCroppedImageOptions('blob'));
         this._saveResultedImage(croppedImageBlob);
-        console.log(croppedImageBlob);
-    },
-    async _cropImageForView() {
-        this.log('_cropImage');
-        const croppedImageHTML = await this.crop.result(this._getCroppedImageOptions('html'));
-        domStyleSet(this.croppedImageViewWrapper, "display", "block");
-        domEmpty(this.croppedImageViewWrapper);
-        domPlace(croppedImageHTML, this.croppedImageViewWrapper);
-        /*if (!this.croppedImageMxObject) {
 
-        }*/
+    },
+    _cropImageForView() {
+        this.log('_cropImage');
+        return this.crop.result(this._getCroppedImageOptions('blob')); // a promise that resolves to blob
     },
 
     _getCroppedImageOptions(type) {
@@ -236,20 +233,21 @@ export default defineWidget('ImageCrop', template, {
         this.controlsWrapper = domCreate("div", {
             class: `btn-group image-crop-controls`,
         });
-        this.croppedImageViewWrapper = domCreate("div", {
+
+        this.showPreview && (this.croppedImageViewWrapper = domCreate("div", {
             class: `image-crop-cropped-image-viewer`,
-        });
+        }));
 
         this.cropBtn = domCreate("button", {
-            class: `btn btn-${this.cropButtonStyle} btn-${this.cropButtonPosition} image-crop-btn image-crop-btn--crop`,
+            class: `mx-button btn btn-${this.cropButtonStyle} image-crop-btn image-crop-btn--crop`,
             innerHTML: "Crop"
         });
         this.rotateLeftBtn = domCreate("button", {
-            class: `btn btn-${this.cropButtonStyle} btn-${this.cropButtonPosition} image-crop-btn image-crop-btn--rotate-l`,
+            class: `mx-button btn btn-${this.cropButtonStyle} image-crop-btn image-crop-btn--rotate-l`,
             innerHTML: "Rotate Left"
         });
         this.rotateRightBtn = domCreate("button", {
-            class: `btn btn-${this.cropButtonStyle} btn-${this.cropButtonPosition} image-crop-btn image-crop-btn--rotate-r`,
+            class: `mx-button btn btn-${this.cropButtonStyle} image-crop-btn image-crop-btn--rotate-r`,
             innerHTML: "Rotate Right"
         });
         if (this.cropWidgetWrapperBottomMargin) {
@@ -272,6 +270,8 @@ export default defineWidget('ImageCrop', template, {
         this.eventHandlers.push(rotateLeftEventHandler);
         this.eventHandlers.push(rotateRightEventHandler);
 
+
+        this.showPreview && (this._renderPreviewImage());
         this._resetCropperOffsets();
 
     },
@@ -295,9 +295,51 @@ export default defineWidget('ImageCrop', template, {
 
             this.enableZoomer && (domStyleSet(cropSliderWrapper, "width", `${cropBoundaryWidth}px`));
             cropBoundaryWidth && (domStyleSet(this.controlsWrapper, "width", `${cropBoundaryWidth}px`));
-            cropBoundaryWidth && (domStyleSet(this.croppedImageViewWrapper, "width", `${cropBoundaryWidth}px`));
+            (this.showPreview && cropBoundaryWidth) && (domStyleSet(this.croppedImageViewWrapper, "width", `${cropBoundaryWidth}px`));
         }
 
+    },
+
+    _convertBlobToImageURL(blob) {
+        this.log('_convertBlobToImageURL');
+        const imageURL = URL.createObjectURL(blob);
+        return imageURL;
+        /*const reader  = new FileReader();
+        return URL.createObjectURL(blob);*/
+
+    },
+
+    _renderPreviewImage(imgURL) {
+        this.log('_createPreviewImage');
+        if (!this.imagePreviewContainer) {
+            this.imagePreviewContainer = domCreate("div", {
+                class: "croppie-result",
+                style: "display:none;"
+            });
+            domPlace(this.imagePreviewContainer, this.croppedImageViewWrapper);
+        }
+        if (!this.imagePreviewNode) {
+            this.imagePreviewNode = domCreate("img", {
+                class: "mx-image img-responsive cropped-preview-img",
+                src: imgURL || ""
+            });
+            this.imagePreviewNode.onload = () => {
+                URL.revokeObjectURL(this.currentPreviewImageURL);
+            };
+            domPlace(this.imagePreviewNode, this.imagePreviewContainer);
+        }
+
+        if (imgURL) {
+            console.log(imgURL);
+            domStyleSet(this.imagePreviewContainer, "display", "flex");
+            this.currentPreviewImageURL = imgURL;
+            this.imagePreviewNode.src = imgURL;
+        }
+
+    },
+
+    _createPreviewNode() {
+        this.log('resize');
     },
 
     resize() {
