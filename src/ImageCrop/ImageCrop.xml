@@ -99,6 +99,11 @@
             <category>Options</category>
             <description>Widget's bottom margin in 'px' unit.</description>
         </property>
+        <property key="showPreview" type="boolean" required="true" defaultValue="true">
+            <caption>Show Preview</caption>
+            <category>Options</category>
+            <description>Show/Hide a preview section of your selection.</description>
+        </property>
         <property key="croppedImageFormat" type="enumeration" required="true" defaultValue="png">
             <caption>Format</caption>
             <category>Result Image Options</category>
