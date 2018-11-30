@@ -22,6 +22,10 @@
     height: 100%;
 }
 
+.cr-boundary {
+    border-radius: 4px;
+}
+
 .croppie-container .cr-viewport,
 .croppie-container .cr-resizer {
     position: absolute;
@@ -107,10 +111,11 @@
 .croppie-result {
     position: relative;
     overflow: hidden;
+    margin: 0 auto;
 }
 
 .croppie-result img {
-    position: absolute;
+    // position: absolute;
 }
 
 .croppie-container .cr-image,
@@ -267,6 +272,7 @@ background: #ccc;
 
 .image-crop-wrapper {}
 
+
 .image-crop-controls {
     margin: 0 auto;
     display: flex;
@@ -275,4 +281,23 @@ background: #ccc;
         flex: 1;
         text-transform: none;
     }
+}
+
+.image-crop-cropped-image-viewer {
+    background: url("./images/cut_pattern.png");
+    border: #e4e4e4 dashed 5px;
+    border-radius: 4px;
+
+    margin: 0 auto;
+    padding: 30px 15px;
+
+    .croppie-result {
+        display: flex;
+        justify-content: center;
+    }
+}
+
+.cropped-preview-img {
+    box-shadow: 0 0 1px 1px #0000001a;
+    border-radius: 4px;
 }
