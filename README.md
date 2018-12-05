@@ -16,3 +16,11 @@ After cropping an image successfully, a **mandatory** Microflow will be triggere
 4. Set your cropping configuration.
 5. Set your configuration for the resulting image.
 
+
+## Available Options
+
+#### Handlers :
+||Type | Description|
+|-----|-----|-----|
+|Cropped Image MF| `Microflow`|This microflow returns the control on the cropped image.|
+
