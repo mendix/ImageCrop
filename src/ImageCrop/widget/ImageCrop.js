@@ -305,7 +305,10 @@ export default defineWidget('ImageCrop', template, {
 		domPlace(this.cropBtn, this.controlsWrapper);
 		domPlace(this.rotateRightBtn, this.controlsWrapper);
 
-		const cropEventHandler = on(this.cropBtn, 'click', hitch(this, this._cropImageForSave));
+		const cropWithDebounce = this._withDebounce(this._cropImageForSave, 500);
+
+		//const cropEventHandler = on(this.cropBtn, 'click', hitch(this, this._cropImageForSave));
+		const cropEventHandler = on(this.cropBtn, 'click', cropWithDebounce);
 		const rotateLeftEventHandler = on(this.rotateLeftBtn, 'click', hitch(this, this._rotateLeft));
 		const rotateRightEventHandler = on(this.rotateRightBtn, 'click', hitch(this, this._rotateRight));
 		this.eventHandlers.push(cropEventHandler);
@@ -515,5 +518,23 @@ export default defineWidget('ImageCrop', template, {
 		this.eventHandlers.forEach((handler) => {
 			handler.remove();
 		});
+	},
+
+	/*
+		* call the given function after the provided 'wait' time in ms
+		* and when it stops being called.
+		* used to handle million times pressing on the crop button
+	*/
+	_withDebounce(func, wait) {
+		let timeout;
+		return () => {
+			const context = this;
+			const args = arguments;
+			clearTimeout(timeout);
+			timeout = setTimeout(() => {
+				timeout = null;
+				func.apply(context, args);
+			}, wait);
+		};
 	}
 });
