@@ -18,6 +18,7 @@ export default defineWidget('ImageCrop', template, {
 		this.log = log.bind(this);
 		this.runCallback = runCallback.bind(this);
 		this.eventHandlers = [];
+		this.subscriptionHandlers = [];
 		this.nextRotate = 0;
 		this.contextObject = null;
 		this.imageSrc = '';
@@ -26,15 +27,17 @@ export default defineWidget('ImageCrop', template, {
 			PREVIEW: 'PREVIEW'
 		};
 		this.hasError = false; // set this to true when only the error could affect the rendering.
+		this.lastCroppedImageGUID = '';
 	},
 
-	postCreate() {
-		this.log('postCreate');
+	startup() {
+		this.log('startup');
 	},
 	update(object, callback) {
 		this.log('update');
 		if (isMxImageObject(object)) {
 			this.contextObject = object;
+			this.subscribe({ guid: object.getGuid(), callback: () => {} });
 			this.imageSrc = `/file?fileID=${this.contextObject.get('FileID')}&${(+new Date()).toString(36)}`;
 			if (!this.readOnly) {
 				this._buildWidget();
@@ -53,8 +56,7 @@ export default defineWidget('ImageCrop', template, {
 	},
 
 	_createNewCroppedImageObject(MxEntityName, callback) {
-		this.log('postCreate');
-
+		this.log('_createNewCroppedImageObject');
 		// set the name of the newly created image object for the resulted image.
 		const ImageNameWithFormat = this.contextObject.get('Name');
 		const originalImageName = ImageNameWithFormat.slice(0, ImageNameWithFormat.lastIndexOf('.'));
@@ -64,6 +66,8 @@ export default defineWidget('ImageCrop', template, {
 			entity: MxEntityName,
 			callback: hitch(this, (object) => {
 				this.croppedImageMxObject = object;
+				this.subscribe({ guid: object.getGuid(), callback: () => {} }); // subscribe so it's not gonna be garbage collected.
+				this.lastCroppedImageGUID = object.getGuid();
 				this.croppedImageMxObject.set('Name', this.croppedImageName);
 				callback && this.runCallback(callback, 'return control to widget base');
 			}),
@@ -83,28 +87,31 @@ export default defineWidget('ImageCrop', template, {
 
 	_saveResultedImage(blob) {
 		this.log('_saveResultedImage');
+		if (!blob || !this.lastCroppedImageGUID) return;
 		if (mx.data.saveDocument) {
 			mx.data.saveDocument(
-				this.croppedImageMxObject.getGuid(),
+				this.croppedImageMxObject,
 				this.croppedImageName,
 				{
-					width: 180,
-					height: 180
+					width: 150,
+					height: 150
 				},
 				blob,
 				hitch(this, () => {
-					this._returnToUserHandling();
+					this.lastCroppedImageGUID = '';
 					this._createNewCroppedImageObject(this.contextObject.getEntity());
+					this._returnToUserHandling();
 				}),
 				hitch(this, (error) => {
 					this._setErrorFeedbackNode(
 						'Oops! Something went wrong, please check your console for more info about the error.'
 					);
-					console.error(error.message, error);
+					console.error(error, error.message);
 				})
 			);
 		} else if (mendix.lib.Upload) {
 			const Uploader = mendix.lib.Upload;
+			this.log('call: Mx.Uploader');
 			const croppedImageUploader = new Uploader({
 				objectGuid: this.croppedImageMxObject.getGuid(),
 				maxFileSize: blob.size,
@@ -116,8 +123,8 @@ export default defineWidget('ImageCrop', template, {
 					}
 				},
 				callback: hitch(this, () => {
-					this._returnToUserHandling();
 					this._createNewCroppedImageObject(this.contextObject.getEntity());
+					this._returnToUserHandling();
 				}),
 				error: hitch(this, (error) => {
 					this._setErrorFeedbackNode(
@@ -212,7 +219,7 @@ export default defineWidget('ImageCrop', template, {
 	},
 
 	async _cropImageForSave() {
-		this.log('_cropImage');
+		this.log('_cropImageForSave');
 		const croppedImageBlob = await this.crop.result(this._getCroppedImageOptions());
 		this._saveResultedImage(croppedImageBlob);
 	},
@@ -305,7 +312,7 @@ export default defineWidget('ImageCrop', template, {
 		domPlace(this.cropBtn, this.controlsWrapper);
 		domPlace(this.rotateRightBtn, this.controlsWrapper);
 
-		const cropWithDebounce = this._withDebounce(this._cropImageForSave, 250);
+		const cropWithDebounce = this._withDebounce(this._cropImageForSave, 400);
 		const cropEventHandler = on(this.cropBtn, 'click', cropWithDebounce);
 		const rotateLeftEventHandler = on(this.rotateLeftBtn, 'click', hitch(this, this._rotateLeft));
 		const rotateRightEventHandler = on(this.rotateRightBtn, 'click', hitch(this, this._rotateRight));
@@ -523,6 +530,7 @@ export default defineWidget('ImageCrop', template, {
 		* and when it stops being called.
 		* used to handle million times pressing on the crop button
 	*/
+
 	_withDebounce(func, wait) {
 		let timeout;
 		return () => {
