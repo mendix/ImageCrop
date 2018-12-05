@@ -46,10 +46,13 @@
         "use-isnan": 2,
         "valid-typeof": 2,
         "no-unexpected-multiline": 2,
-        "accessor-pairs": [1, {
-            "getWithoutSet": true,
-            "setWithoutGet": true
-        }],
+        "accessor-pairs": [
+            1,
+            {
+                "getWithoutSet": true,
+                "setWithoutGet": true
+            }
+        ],
         "block-scoped-var": 2,
         "consistent-return": 1,
         "curly": ["error", "all"],
@@ -61,7 +64,7 @@
         "no-alert": 2,
         "no-caller": 2,
         "no-div-regex": 2,
-        "no-else-return": 1,
+        "no-else-return": 0,
         "no-eq-null": 2,
         "no-eval": 2,
         "no-extend-native": 2,
@@ -82,14 +85,20 @@
         "no-new": 1,
         "no-octal-escape": 2,
         "no-octal": 2,
-        "no-param-reassign": [2, {
-            "props": true
-        }],
+        "no-param-reassign": [
+            2,
+            {
+                "props": true
+            }
+        ],
         "no-process-env": 0,
         "no-proto": 2,
-        "no-redeclare": [2, {
-            "builtinGlobals": true
-        }],
+        "no-redeclare": [
+            2,
+            {
+                "builtinGlobals": true
+            }
+        ],
         "no-return-assign": [2, "always"],
         "no-script-url": 2,
         "no-self-compare": 1,
@@ -105,37 +114,56 @@
         "no-delete-var": 2,
         "no-label-var": 2,
         "no-shadow-restricted-names": 2,
-        "no-shadow": [2, {
-            "builtinGlobals": true,
-            "hoist": "all"
-        }],
+        "no-shadow": [
+            2,
+            {
+                "builtinGlobals": true,
+                "hoist": "all"
+            }
+        ],
         "no-undef-init": 2,
         "no-undef": 2,
         "no-undefined": 2,
         "no-unused-vars": 1,
         "no-use-before-define": [2, "nofunc"],
-        "brace-style": [1, "1tbs", {
-            "allowSingleLine": true
-        }],
-        "camelcase": [1, {
-            "properties": "always"
-        }],
-        "comma-spacing": [1, {
-            "after": true
-        }],
+        "brace-style": [
+            1,
+            "1tbs",
+            {
+                "allowSingleLine": true
+            }
+        ],
+        "camelcase": [
+            1,
+            {
+                "properties": "always"
+            }
+        ],
+        "comma-spacing": [
+            1,
+            {
+                "after": true
+            }
+        ],
         "comma-style": 1,
         "computed-property-spacing": [0, "always"],
         "eol-last": 1,
         "indent": [1, 4],
-        "key-spacing": [1, {
-            "mode": "minimum"
-        }],
+        "key-spacing": [
+            1,
+            {
+                "mode": "minimum"
+            }
+        ],
         "new-parens": 2,
         "no-lonely-if": 1,
         "no-mixed-spaces-and-tabs": [2, "smart-tabs"],
-        "no-multiple-empty-lines": [1, {
-            "max": 4
-        }],
+        "no-multiple-empty-lines": [
+            1,
+            {
+                "max": 4
+            }
+        ],
         "no-new-object": 2,
         "no-spaced-func": 2,
         "no-trailing-spaces": 0,
@@ -143,10 +171,13 @@
         "semi": [2, "always"],
         "space-infix-ops": 1,
         "arrow-parens": [0, "as-needed"],
-        "arrow-spacing": [2, {
-            "before": true,
-            "after": true
-        }],
+        "arrow-spacing": [
+            2,
+            {
+                "before": true,
+                "after": true
+            }
+        ],
         "constructor-super": 1,
         "no-class-assign": 2,
         "no-const-assign": 2,
@@ -157,6 +188,6 @@
         "prefer-reflect": 0,
         "require-yield": 1,
         "max-len": [1, 140, 4, {}],
-        "max-statements": [1, 40]
+        "max-statements": [1, 100]
     }
 }
