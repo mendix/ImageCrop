@@ -60,7 +60,7 @@
     background: #fff;
     width: 10px;
     height: 10px;
-    content: '';
+    content: "";
 }
 
 .croppie-container .cr-resizer-vertical {
@@ -169,10 +169,10 @@
 }
 
 /*
-.cr-slider:focus::-webkit-slider-runnable-track {
-background: #ccc;
-}
-*/
+    .cr-slider:focus::-webkit-slider-runnable-track {
+    background: #ccc;
+    }
+    */
 
 .cr-slider::-moz-range-track {
     width: 100%;
@@ -261,43 +261,32 @@ background: #ccc;
 }
 
 .cr-rotate-l i:before {
-    content: '↺';
+    content: "↺";
 }
 
 .cr-rotate-r i:before {
-    content: '↻';
+    content: "↻";
 }
 
-.image-crop {}
-
-.image-crop-wrapper {}
-
-
-.image-crop-controls {
-    margin: 0 auto;
+.IC-tab-container__controls-wrapper,
+.IC-cropping__controls-wrapper,
+.IC-cropping-controls {
+    margin: 0 auto 15px auto;
     display: flex;
-
     .btn {
         flex: 1;
         text-transform: none;
     }
 }
-
-.image-crop-cropped-image-viewer {
-    background: url("./images/cut_pattern.png");
-    border: #e4e4e4 dashed 5px;
-    border-radius: 4px;
-
-    margin: 0 auto;
-    padding: 30px 15px;
-
-    .croppie-result {
-        display: flex;
-        justify-content: center;
-    }
+.IC-cropping-controls--no-zoomer {
+    margin-top: 15px;
 }
 
-.cropped-preview-img {
-    box-shadow: 0 0 1px 1px #0000001a;
-    border-radius: 4px;
+.IC-cropping__btn--rotate-l {
+    span {
+        transform: rotateY(180deg);
+    }
+}
+.IC-preview-image {
+    margin: 0 auto 15px auto;
 }
