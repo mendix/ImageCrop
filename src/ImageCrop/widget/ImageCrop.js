@@ -312,7 +312,7 @@ export default defineWidget('ImageCrop', template, {
 		domPlace(this.cropBtn, this.controlsWrapper);
 		domPlace(this.rotateRightBtn, this.controlsWrapper);
 
-		const cropWithDebounce = this._withDebounce(this._cropImageForSave, 400);
+		const cropWithDebounce = this._withDebounce(this._cropImageForSave, 250);
 		const cropEventHandler = on(this.cropBtn, 'click', cropWithDebounce);
 		const rotateLeftEventHandler = on(this.rotateLeftBtn, 'click', hitch(this, this._rotateLeft));
 		const rotateRightEventHandler = on(this.rotateRightBtn, 'click', hitch(this, this._rotateRight));
