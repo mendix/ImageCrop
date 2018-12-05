@@ -20,7 +20,8 @@ After cropping an image successfully, a **mandatory** Microflow will be triggere
 ## Available Options
 
 #### Handlers :
-||Type | Description|
+|Name|Type | Description|
 |-----|-----|-----|
-|Cropped Image MF| `Microflow`|This microflow returns the control on the cropped image.|
+|Cropped Image MF| `Microflow`|This microflow returns the control on the cropped image. Cropped image Object will be passed as a parameeter to the Microflow.|
+|Original Image MF| `Microflow`|This microflow returns the control on the original image. Orignal image Object will be passed as a parameeter to the Microflow.|
 
