@@ -14,3 +14,5 @@ test/*.classpath
 test/*.mpr.bak
 test/*.project
 test/*.launch
+
+.eslintrc
