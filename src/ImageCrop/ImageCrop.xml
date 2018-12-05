@@ -7,24 +7,14 @@
         <property key="cropedImageMicroflowHandler" type="microflow" required="true">
             <caption>Cropped Image MF</caption>
             <category>Handlers</category>
-            <description>This microflow returns the control on the cropped image to the user. Implement your logic in a microflow that accepts a parameter of the same type as the context object in which the widget is placed (e.g. perform on the cropped image save, delete, compress, convert to pdf, etc..).</description>
+            <description>This microflow returns the control on the cropped image.</description>
             <returnType type="Void" />
         </property>
         <property key="originaLImageMicroflowHandler" type="microflow" required="false">
             <caption>Original Image MF</caption>
             <category>Handlers</category>
-            <description>This microflow returns the control on the original image to the user. Implement your logic in a microflow that accepts a parameter of the same type as the context object in which the widget is placed (e.g. perform on the cropped image save, delete, compress, convert to pdf, etc..).</description>
+            <description>This microflow returns the control on the original image. </description>
             <returnType type="Void" />
-        </property>
-        <property key="viewportWidth" type="integer" required="true" defaultValue="150">
-            <caption>Viewport Width</caption>
-            <category>Options</category>
-            <description></description>
-        </property>
-        <property key="viewportHeight" type="integer" required="true" defaultValue="150">
-            <caption>Viewport Height</caption>
-            <category>Options</category>
-            <description></description>
         </property>
         <property key="boundaryWidth" type="integer" required="true" defaultValue="300">
             <caption>Boundary Width</caption>
@@ -34,7 +24,7 @@
         <property key="boundaryHeight" type="integer" required="true" defaultValue="300">
             <caption>Boundary Height</caption>
             <category>Options</category>
-            <description>If 'bounary height' and/or 'boundary width' are/is set to '0', this means that boundaries will be default to the size of the widget (NOTE: By default the widget has no width nor a height, so leaving these options equal to '0' makes the image invisible as one or both of its dimensions are/is '0', so make sure to define the width and the height of the widget using CSS rules instead).</description>
+            <description></description>
         </property>
         <property key="viewportType" type="enumeration" required="true" defaultValue="circle">
             <caption>Viewport Type</caption>
@@ -55,15 +45,10 @@
             <category>Options</category>
             <description></description>
         </property>
-        <!-- <property key="enableOrientation" type="boolean" required="true" defaultValue="true">
-            <caption>Enable Orientation</caption>
-            <category>Options</category>
-            <description></description>
-        </property> -->
         <property key="mouseWheelZoom" type="enumeration" required="true" defaultValue="yes">
             <caption>Mouse Wheel Zoom</caption>
             <category>Options</category>
-            <description>Enable or disable the ability to use the mouse wheel to zoom in and out on a croppie instance. If 'Yes + Ctrl' is selected, mouse wheel zoom will only work while control keyboard is pressed.</description>
+            <description>If 'Yes + Ctrl' is selected, mouse wheel zoom will only work while control keyboard is pressed.</description>
             <enumerationValues>
                 <enumerationValue key="yes">Yes</enumerationValue>
                 <enumerationValue key="yesWithCtrl">Yes + Ctrl</enumerationValue>
@@ -84,25 +69,11 @@
                 <enumerationValue key="danger">Danger</enumerationValue>
             </enumerationValues>
         </property>
-        <property key="cropButtonPosition" type="enumeration" required="true" defaultValue="block">
-            <caption>Crop Button Position</caption>
-            <category>Options</category>
-            <description></description>
-            <enumerationValues>
-                <enumerationValue key="block">Block</enumerationValue>
-                <enumerationValue key="left">Left</enumerationValue>
-                <enumerationValue key="right">Right</enumerationValue>
-            </enumerationValues>
-        </property>
-        <property key="cropWidgetWrapperBottomMargin" type="integer" required="true" defaultValue="15">
-            <caption>Bottom Margin</caption>
-            <category>Options</category>
-            <description>Widget's bottom margin in 'px' unit.</description>
-        </property>
+
         <property key="showPreview" type="boolean" required="true" defaultValue="true">
             <caption>Show Preview</caption>
             <category>Options</category>
-            <description>Show/Hide a preview section of your selection.</description>
+            <description></description>
         </property>
         <property key="croppedImageFormat" type="enumeration" required="true" defaultValue="png">
             <caption>Format</caption>
@@ -117,21 +88,16 @@
         <property key="croppedImageQuality" type="string" required="true" defaultValue="1.0">
             <caption>Quality</caption>
             <category>Result Image Options</category>
-            <description>A decimal number between 0 and 1.</description>
+            <description>A decimal number between 0 and 1. Note: only will be applied when the format is 'jpg'.</description>
         </property>
-        <property key="croppedImageSize" type="enumeration" required="true" defaultValue="viewport">
+        <property key="croppedImageSize" type="enumeration" required="true" defaultValue="original">
             <caption>Size</caption>
             <category>Result Image Options</category>
-            <description>'Viewport' option means that the size of the resulting image will be the same width and height as the viewport, and 'Original' options means that the size of the resulting image will be at the original scale of the image.</description>
+            <description></description>
             <enumerationValues>
                 <enumerationValue key="viewport">Viewport</enumerationValue>
                 <enumerationValue key="original">Original</enumerationValue>
             </enumerationValues>
-        </property>
-        <property key="croppedImageIsCircle" type="boolean" required="true" defaultValue="false">
-            <caption>Circle</caption>
-            <category>Result Image Options</category>
-            <description>Force the resulting image to be cropped into a circle.</description>
         </property>
     </properties>
 </widget>
