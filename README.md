@@ -1,6 +1,6 @@
 # ImageCrop Mendix Widget [![Support](https://img.shields.io/badge/Mendix%20Support%3A-Community-orange.svg)](https://docs.mendix.com/community/app-store/app-store-content-support)
 
-This [widget](https://appstore.home.mendix.com/link/app/1712/Mendix/ChartJS-Widget) | [Demo](https://imagecropdemo100-sandbox.mxapps.io/index.html?profile=Responsive) is a wrapper for the [Croppie](https://foliotek.github.io/Croppie/) image cropping library and you can use it to crop images in your Mendix App.
+This [Widget](https://appstore.home.mendix.com/link/app/1712/Mendix/ChartJS-Widget) | [Demo](https://imagecropdemo100-sandbox.mxapps.io/index.html?profile=Responsive) is a wrapper for the [Croppie](https://foliotek.github.io/Croppie/) image cropping library and you can use it to crop images in your Mendix App.
 
 ## How does it work?
 
