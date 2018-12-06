@@ -20,21 +20,27 @@ After cropping an image successfully, a **mandatory** Microflow will be triggere
 ## Available Options
 
 #### Handlers :
-|Name|Type | Description|
-|-----|-----|-----|
-|Cropped Image MF| `Microflow`|This microflow returns the control on the cropped image. Cropped image Object will be passed as a parameeter to the Microflow.|
+
+
+| Name      | Type        | Description|
+|:---------:|-------------|------------|
+| Cropped Image MF| `Microflow` |   This microflow returns the control on the cropped image. Cropped image Object will be passed as a parameeter to the Microflow.|
 |Original Image MF| `Microflow`|This microflow returns the control on the original image. Orignal image Object will be passed as a parameeter to the Microflow.|
 
+
 #### Options :
-|Name|Type | Description|
-|-----|-----|-----|
+| Name      | Type        | Description|
+|:---------:|-------------|------------|
 |Boundary Width| `Number(integer)`|The width of the widgte in `px`.|
-|Boundary Height| `Number(integer)`|The height of the widgte in `px`.|
-|Viewport Type| `Enum: ( 'Circle' | 'Square' )`|The type of the viewport (cropping window).|
-|Enable Zoomer| `Boolean`|Enable/Disable zooming on the image.|
-|Enable Resize| `Boolean`|Enable/Disable resizing the image.|
-|Mouse Wheel Zoom| `Enum: ( 'Yes' | 'Yes + Ctrl' | 'No' )`|Enable/Disable the ability to zoom on the image by the mouse wheel. if `Yes + Ctrl` is selected, this means that you need to press `Ctrl` in order for the zooming with mouse wheel to work.|
-|Crop Button Style| `Enum: ( 'Default' | 'Primary' | 'Success' | 'Info' | 'Warning' | 'Danger' )`|Sets the style of the cropping button.|
+|Boundary Height| `Number(integer)` |The height of the widgte in `px`.|
+|Viewport Type| Enum: ( `'Circle','Square'` )|The type of the viewport (cropping window).|
+|Enable Zoomer| Boolean |Enable/Disable zooming on the image.|
+|Enable Resize| Boolean |Enable/Disable resizing the image.|
+|Mouse Wheel Zoom| `Enum: ( 'Yes' , 'Yes + Ctrl' , 'No' )` |Enable/Disable the ability to zoom on the image by the mouse wheel. if `Yes + Ctrl` is selected, this means that you need to press `Ctrl` in order for the zooming with mouse wheel to work.|
+|Crop Button Style|  `Enum: ( 'Default' , 'Primary' , 'Success' , 'Info' , 'Warning' , 'Danger' )` |Sets the style of the cropping button.|
+
+
+
 
 
 
