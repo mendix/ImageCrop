@@ -2,6 +2,8 @@
 
 This [Widget](https://appstore.home.mendix.com) | [Demo](https://imagecropdemo100-sandbox.mxapps.io/index.html?profile=Responsive) is a wrapper for the [Croppie](https://foliotek.github.io/Croppie/) image cropping library and you can use it to crop images in your Mendix App.
 
+<p align="center"><img src="./demo-img.png" alt="drawing" width="435"/></p>
+
 ## How does it work?
 
 After you put the widget in a data-view with an entity which inherits from `'System.Image'` and once you run your application and the widget is initialized, it will create an instance of the same type as the context, this instance will be the object that will be coupled with the resulted/cropped image. 
