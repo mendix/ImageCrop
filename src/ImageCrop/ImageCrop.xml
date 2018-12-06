@@ -82,7 +82,6 @@
             <enumerationValues>
                 <enumerationValue key="png">png</enumerationValue>
                 <enumerationValue key="jpeg">jpg</enumerationValue>
-                <enumerationValue key="webp">webp</enumerationValue>
             </enumerationValues>
         </property>
         <property key="croppedImageQuality" type="string" required="true" defaultValue="1.0">
