@@ -56,7 +56,7 @@ Mx6.0.1 or higher.
 ## Limitations & Known Issues:
 1. Initializing the widget in an invisible element will cause the widget to function inconsistently in regard to viewing & cropping the image you want to crop. e.g. using the widget in a 'Gropu box' container with the default state is set to 'start collapsed'. We'll consider fixing this issue in a future release. However, if this situation occurs it has no sideeffects on any other component.
 2. When you set the `Viewport` to be `Circle` and the `Fomrat` to `jpg`, the areas of the resulted image that are outside the cropped circle will be replaced with black background. Please  see the image below : 
-<p align="center"><img src="./black-frame.png" alt="drawing" width="200"/></p>
+<p align="center"><img src="./black-frame.png" alt="drawing" width="314"/></p>
 
 
 
