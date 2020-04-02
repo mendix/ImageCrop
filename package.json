@@ -55,7 +55,7 @@
         "gulp-sequence": "^0.4.6",
         "gulp-util": "^3.0.8",
         "gulp-watch": "^4.3.11",
-        "img-loader": "^2.0.0",
+        "img-loader": "^3.0.0",
         "loadcss": "^0.0.2",
         "node-sass": "^4.5.3",
         "postcss-loader": "^2.0.6",
